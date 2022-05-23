@@ -1,0 +1,28 @@
+@echo off
+
+rem Connect to Oracle DB server
+
+echo #########################
+echo ##Starting Build now!!!##
+echo #########################
+
+rem Reading params.env and set variables
+for /f "delims== tokens=1,2" %%G in (params.env) do set %%G=%%H
+
+rem export current app from Dev
+c:
+cd %SQLCL_PATH%
+sql %DB_USERNAME%/%DB_PASSWORD%@%DB_HOST%:%DB_PORT%/%DB_SID% @%APEX_BUILD_PATH%export.sql
+move %EXPORT_SCRIPT% %APEX_BUILD_PATH% 
+rem ==========================================================================================
+
+cd %BUILD_PATH%
+
+rem run db build
+sqlplus %DB_UAT_USERNAME%/%DB_UAT_PASSWORD%@"(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP) (HOST=%DB_UAT_HOST%)(PORT = %DB_UAT_PORT%))) (CONNECT_DATA=(SID=%DB_UAT_SID%)))" @%DB_SCRIPT%
+
+echo connected to Oracle DB
+
+git add --all
+
+git commit -m 'auto commit from build script'
