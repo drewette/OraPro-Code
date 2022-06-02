@@ -1,0 +1,10 @@
+1. Add a variable (to store the current position) in the page's Global Variable Declaration
+var savepos;
+2. Add a class to your report region (in my example, I used the word "position")
+3. Create a ‘click’ dynamic action (using the jQuery selector from step 2 (class=”position”)) to execute the following .js
+savepos = $(window).scrollTop();
+This will update the current screen position to the global variable.
+4. Create an ‘after refresh’ dynamic action for your report region to execute the following .js
+$(window).scrollTop(savepos);
+This will keep the user at the same screen position they were at before $hit changed!
+5. Wallop!
