@@ -2,5 +2,5 @@
 
 c:
 cd C:\ProgramData\Sun\Java\Deployment\cache\sqldeveloper\sqldeveloper\bin
-sql apx_flask_transit/TRANSIT_01@bwdax022:1521/S7TEST @C:\git\export_all_apex_apps.sql
+sql app/pwd@bwdax022:1521/S7TEST @C:\git\export_all_apex_apps.sql
 
